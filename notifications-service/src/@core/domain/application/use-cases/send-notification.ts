@@ -1,32 +1,33 @@
+import { Either, right } from '../../../shared'
 import { Content } from '../../entities/content'
 import { Notification } from '../../entities/notification'
 
 /* eslint-disable @typescript-eslint/no-empty-function */
-interface SendNotificationRequest {
+export interface SendNotificationRequest {
   recipientId: string
   content: string
   category: string
 }
 
-interface SendNotificationResponse {
+export interface SendNotificationResponse {
   notification: Notification
 }
 
 export class SendNotificationUseCase {
   constructor() {}
 
-  async execute(
+  public async execute(
     request: SendNotificationRequest
-  ): Promise<SendNotificationResponse> {
+  ): Promise<Either<Error, SendNotificationResponse>> {
     const { recipientId, content, category } = request
-    const notification = new Notification({
+    const notification = Notification.create({
       recipientId,
       content: Content.create(content).value as Content,
       category
     })
 
-    return {
-      notification
-    }
+    return right({
+      notification: notification.value as Notification
+    })
   }
 }
