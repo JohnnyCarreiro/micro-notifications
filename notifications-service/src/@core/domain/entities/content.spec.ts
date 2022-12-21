@@ -9,7 +9,6 @@ describe('Notification Content', () => {
 
   it('Should not be able to create a new content with less than 5 characters', () => {
     const contentError = Content.create('aaa').value as InvalidContentError
-    console.log(contentError.message)
     expect(contentError).toBeInstanceOf(InvalidContentError)
   })
 
