@@ -5,7 +5,7 @@ export class Content {
   private constructor(private readonly content: string) {}
 
   public static create(content: string): Either<InvalidContentError, Content> {
-    if (!!this.isContentLengthValid(content)) {
+    if (this.isContentLengthValid(content) != true) {
       const errorMessage = this.isContentLengthValid(content)
       return left(new InvalidContentError(errorMessage as string))
     }
