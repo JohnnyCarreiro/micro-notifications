@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { AppController } from './app.controller'
-import { AppService } from '../app.service'
+import { NotificationsController } from './notifications.controller'
+import { AppService } from '../../../app.service'
 
 describe.skip('AppController', () => {
   // let appController: AppController
