@@ -1,4 +1,5 @@
 import { Content } from './content'
+import { InvalidContentError } from './content-error'
 import { Notification } from './notification'
 import { InvalidNotificationError } from './notification-error'
 
@@ -38,5 +39,15 @@ describe('Notification', () => {
     })
     console.log('Undefined:', notification.value)
     expect(notification.value).toBeInstanceOf(InvalidNotificationError)
+  })
+  it('Should not be able to create a new Notification without a content', () => {
+    const notification = Notification.create({
+      recipientId: 'recipientId',
+      content: Content.create('').value as Content,
+      category: 'notification-category'
+    })
+    console.log(notification.value)
+    expect(notification.value).toBeInstanceOf(InvalidContentError)
+    // expect(true).toBe(true)
   })
 })
