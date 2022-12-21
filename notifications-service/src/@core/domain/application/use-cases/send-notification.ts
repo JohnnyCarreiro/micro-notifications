@@ -1,6 +1,7 @@
 import { Either, right } from '../../../shared'
 import { Content } from '../../entities/content'
 import { Notification } from '../../entities/notification'
+import { NotificationRepository } from '../../repositories/notification-repository'
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 export interface SendNotificationRequest {
@@ -14,7 +15,9 @@ export interface SendNotificationResponse {
 }
 
 export class SendNotificationUseCase {
-  constructor() {}
+  constructor(
+    private readonly notificationRepository: NotificationRepository
+  ) {}
 
   public async execute(
     request: SendNotificationRequest
@@ -25,6 +28,12 @@ export class SendNotificationUseCase {
       content: Content.create(content).value as Content,
       category
     })
+
+    if (notification.isLeft()) {
+      throw new Error(notification.value.message)
+    }
+
+    await this.notificationRepository.create(notification.value as Notification)
 
     return right({
       notification: notification.value as Notification
