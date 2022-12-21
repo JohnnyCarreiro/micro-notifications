@@ -1,5 +1,7 @@
 import { Replace } from 'src/@core/helpers/replace'
 import { Content } from './content'
+import { Either, left, right } from '../../shared'
+import { InvalidNotificationError } from './notification-error'
 
 export interface NotificationProps {
   recipientId: string
@@ -12,11 +14,28 @@ export interface NotificationProps {
 export class Notification {
   private props: NotificationProps
 
-  constructor(props: Replace<NotificationProps, { createdAt?: Date }>) {
+  private constructor(props: NotificationProps) {
     this.props = {
       ...props,
       createdAt: props.createdAt ?? new Date()
     }
+  }
+
+  public static create(
+    props: Replace<NotificationProps, { createdAt?: Date }>
+  ): Either<InvalidNotificationError, Notification> {
+    if (
+      props.recipientId?.length == 0 ||
+      props.recipientId == null ||
+      props.recipientId == undefined
+    ) {
+      return left(
+        new InvalidNotificationError('recipientId could be null or empty')
+      )
+    }
+    return right(
+      new Notification({ ...props, createdAt: props.createdAt ?? new Date() })
+    )
   }
 
   public get recipientId(): string {

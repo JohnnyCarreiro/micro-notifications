@@ -21,7 +21,7 @@ export class SendNotificationUseCase {
     const { recipientId, content, category } = request
     const notification = new Notification({
       recipientId,
-      content: new Content(content),
+      content: Content.create(content).value as Content,
       category
     })
 
