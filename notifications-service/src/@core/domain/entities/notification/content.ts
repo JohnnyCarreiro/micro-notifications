@@ -1,4 +1,4 @@
-import { Either, left, right } from '../../shared/'
+import { Either, left, right } from '@shared/either'
 import { InvalidContentError } from './content-error'
 
 export class Content {

@@ -18,6 +18,15 @@
     "strictBindCallApply": false,
     "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@application/*": ["./src/@core/domain/application/*"],
+      "@entities/*": ["./src/@core/domain/entities/*"],
+      "@repositories/*": ["./src/@core/domain/repositories/*"],
+      "@helpers/*": ["./src/@core/helpers/*"],
+      "@shared/*": ["./src/@core/shared/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@test/*": ["./test/*"],
+    }
   }
 }

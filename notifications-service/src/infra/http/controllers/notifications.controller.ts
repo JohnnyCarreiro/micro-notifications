@@ -3,8 +3,8 @@ import { CreatenotificationBody } from '../dtos/create-notification-body'
 import {
   SendNotificationResponse,
   SendNotificationUseCase
-} from '../../../@core/domain/application/use-cases/send-notification'
-import { Notification } from 'src/@core/domain/entities/notification'
+} from '@application/use-cases/send-notification'
+import { Notification } from '@entities/notification'
 
 @Controller('notifications')
 export class NotificationsController {

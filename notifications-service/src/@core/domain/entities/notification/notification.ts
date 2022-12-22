@@ -1,9 +1,11 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from 'src/@core/helpers/replace'
-import { Content } from './content'
-import { Either, left, right } from '../../shared'
-import { InvalidNotificationError } from './notification-error'
-import { InvalidContentError } from './content-error'
+import {
+  Content,
+  InvalidContentError,
+  InvalidNotificationError
+} from '@entities/notification'
+import { Either, left, right } from '@shared/either'
 
 export interface NotificationProps {
   recipientId: string

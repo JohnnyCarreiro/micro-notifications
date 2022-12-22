@@ -1,5 +1,5 @@
-import { Notification } from '../../../../@core/domain/entities/notification'
-import { NotificationRepository } from '../../../../@core/domain/repositories/notification-repository'
+import { Notification } from '@entities/notification'
+import { NotificationRepository } from '@repositories/notification-repository'
 import { PrismaService } from '../prisma.service'
 
 export class PrismaNotificationRepository implements NotificationRepository {
