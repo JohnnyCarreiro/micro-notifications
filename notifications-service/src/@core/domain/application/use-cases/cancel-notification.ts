@@ -1,6 +1,4 @@
 import { Either, left, right } from '@shared/either'
-import { Content } from '@entities/notification'
-import { Notification } from '@entities/notification'
 import { NotificationRepository } from '@repositories/notification-repository'
 import { NotificationNotFoundException } from './errors/notification-errors'
 
