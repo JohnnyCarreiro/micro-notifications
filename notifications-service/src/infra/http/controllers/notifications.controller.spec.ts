@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { NotificationsController } from './notifications.controller'
 import { AppService } from '../../../app.service'
 
-describe.skip('AppController', () => {
+describe('AppController', () => {
   // let appController: AppController
 
   // beforeEach(async () => {
