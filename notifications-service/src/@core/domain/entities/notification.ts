@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { Replace } from 'src/@core/helpers/replace'
 import { Content } from './content'
 import { Either, left, right } from '../../shared'
@@ -13,13 +14,12 @@ export interface NotificationProps {
 }
 
 export class Notification {
+  private readonly _id: string
   private props: NotificationProps
 
   private constructor(props: NotificationProps) {
-    this.props = {
-      ...props,
-      createdAt: props.createdAt ?? new Date()
-    }
+    this._id = randomUUID()
+    this.props = props
   }
 
   public static create(
@@ -40,6 +40,10 @@ export class Notification {
     return right(
       new Notification({ ...props, createdAt: props.createdAt ?? new Date() })
     )
+  }
+
+  public get id(): string {
+    return this._id
   }
 
   public get recipientId(): string {

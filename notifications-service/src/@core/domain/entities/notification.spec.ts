@@ -5,13 +5,14 @@ import { InvalidNotificationError } from './notification-error'
 
 describe('Notification', () => {
   it('Should be able to create a new Notification', () => {
-    const nottification = Notification.create({
+    const notification = Notification.create({
       recipientId: 'recipient-id-uudi',
       content: Content.create('Notification contente').value as Content,
       category: 'notification-category'
-    })
+    }).value as Notification
 
-    expect(nottification).toBeTruthy()
+    expect(notification).toBeTruthy()
+    expect(notification.createdAt).toBeDefined()
   })
   it('Should not be able to create a new Notification with a empty recipientId', () => {
     const notification = Notification.create({
