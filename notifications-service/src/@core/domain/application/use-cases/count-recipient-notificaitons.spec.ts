@@ -1,5 +1,4 @@
 import { InMamoryNotificationRepository } from '@test/stubs/in-mamory-notification-repository'
-import { Content, Notification } from '@entities/notification'
 import {
   CountRecipientNotificationsResponse,
   CountRecipientNotificationsUseCase
