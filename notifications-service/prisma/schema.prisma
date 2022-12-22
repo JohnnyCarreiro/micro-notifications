@@ -16,6 +16,7 @@ model Notification {
   content     String
   category    String
   readAt      String?
+  canceledAr  String?
   createdAt   String
 
   @@index([recipientId])
