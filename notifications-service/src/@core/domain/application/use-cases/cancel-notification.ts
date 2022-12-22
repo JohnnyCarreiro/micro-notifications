@@ -33,8 +33,6 @@ export class CancelNotificationUseCase {
 
     await this.notificationRepository.save(notification)
 
-    // return right(undefined)
-
     return right(
       (() => {
         return
