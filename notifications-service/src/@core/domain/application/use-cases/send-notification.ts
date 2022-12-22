@@ -1,7 +1,7 @@
-import { Either, right } from '../../../shared'
-import { Content } from '../../entities/content'
-import { Notification } from '../../entities/notification'
-import { NotificationRepository } from '../../repositories/notification-repository'
+import { Either, right } from '@shared/either'
+import { Content } from '@entities/notification'
+import { Notification } from '@entities/notification'
+import { NotificationRepository } from '@repositories/notification-repository'
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 export interface SendNotificationRequest {
