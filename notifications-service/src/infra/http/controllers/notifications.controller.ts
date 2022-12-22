@@ -5,6 +5,7 @@ import {
   SendNotificationUseCase
 } from '@application/use-cases/send-notification'
 import { Notification } from '@entities/notification'
+import { NotificationViewModel } from '../view-models/notification-view-model'
 
 @Controller('notifications')
 export class NotificationsController {
@@ -30,22 +31,8 @@ export class NotificationsController {
       }
       const { notification } = response.value as SendNotificationResponse
 
-      console.log('Notification: ', {
-        id: notification.id,
-        recipientId: notification.recipientId,
-        content: notification.content.value,
-        category: notification.category,
-        createdAt: notification.createdAt.toISOString()
-      })
-
       return {
-        notification: {
-          id: notification.id,
-          recipientId: notification.recipientId,
-          content: notification.content.value,
-          category: notification.category,
-          createdAt: notification.createdAt.toISOString()
-        }
+        notification: NotificationViewModel.toHttp(notification)
       }
     } catch (error) {
       if (error instanceof Error) {
