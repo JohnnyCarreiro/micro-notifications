@@ -20,13 +20,14 @@ export class Notification {
   private readonly _id: string
   private props: NotificationProps
 
-  private constructor(props: NotificationProps) {
-    this._id = randomUUID()
+  private constructor(props: NotificationProps, id?: string) {
+    this._id = id ?? randomUUID()
     this.props = props
   }
 
   public static create(
-    props: Replace<NotificationProps, { createdAt?: Date }>
+    props: Replace<NotificationProps, { createdAt?: Date }>,
+    id?: string
   ): Either<InvalidNotificationError, Notification> {
     if (props.content instanceof InvalidContentError) {
       return left(props.content as unknown as InvalidNotificationError)
@@ -41,7 +42,13 @@ export class Notification {
       )
     }
     return right(
-      new Notification({ ...props, createdAt: props.createdAt ?? new Date() })
+      new Notification(
+        {
+          ...props,
+          createdAt: props.createdAt ?? new Date()
+        },
+        id
+      )
     )
   }
   public cancel() {
