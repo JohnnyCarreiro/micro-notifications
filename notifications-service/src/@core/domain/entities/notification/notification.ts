@@ -48,6 +48,14 @@ export class Notification {
     this.props.cancelAt = new Date()
   }
 
+  public read() {
+    this.props.readAt = new Date()
+  }
+
+  public unread() {
+    this.props.readAt = null
+  }
+
   public get id(): string {
     return this._id
   }
@@ -81,10 +89,6 @@ export class Notification {
 
   public get readAt(): Date | null | undefined {
     return this.props.readAt
-  }
-
-  public set readAt(value: Date | null | undefined) {
-    this.props.readAt = value
   }
 
   public get cancelAt() {
