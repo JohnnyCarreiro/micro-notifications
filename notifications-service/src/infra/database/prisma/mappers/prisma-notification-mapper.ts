@@ -9,7 +9,7 @@ export class PrismaNotificationMapper {
       content: notification.content.value,
       category: notification.category,
       readAt: notification.readAt?.toISOString() ?? null,
-      scheduleFor: notification.scheduledFor?.toISOString() ?? null,
+      scheduledFor: notification.scheduledFor?.toISOString() ?? null,
       canceledAt: notification.cancelAt?.toISOString() ?? null,
       createdAt: notification.createdAt.toISOString()
     }

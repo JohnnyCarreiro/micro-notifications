@@ -9,6 +9,9 @@ import { ReadNotificationUseCase } from '@application/use-cases/read-notificatio
 import { UnreadNotificationUseCase } from '@application/use-cases/unread-notification'
 import { CountRecipientNotificationsUseCase } from '@application/use-cases/count-recipient-notificaitons'
 import { GetRecipientNotificationsUseCase } from '@application/use-cases/get-recipient-notifications'
+import { ScheduleNotificationUseCase } from '@application/use-cases/schedule-notification'
+import { CancelScheduleUseCase } from '@application/use-cases/cancel-schedule-notification'
+import { SendScheduledNotificationUseCase } from '@application/use-cases/send-scheduled-notification'
 
 @Module({
   imports: [DatabaseModule],
@@ -53,6 +56,27 @@ import { GetRecipientNotificationsUseCase } from '@application/use-cases/get-rec
       provide: GetRecipientNotificationsUseCase,
       useFactory: (notificationRepository: NotificationRepository) => {
         return new GetRecipientNotificationsUseCase(notificationRepository)
+      },
+      inject: [PrismaNotificationRepository]
+    },
+    {
+      provide: ScheduleNotificationUseCase,
+      useFactory: (notificationRepository: NotificationRepository) => {
+        return new ScheduleNotificationUseCase(notificationRepository)
+      },
+      inject: [PrismaNotificationRepository]
+    },
+    {
+      provide: CancelScheduleUseCase,
+      useFactory: (notificationRepository: NotificationRepository) => {
+        return new CancelScheduleUseCase(notificationRepository)
+      },
+      inject: [PrismaNotificationRepository]
+    },
+    {
+      provide: SendScheduledNotificationUseCase,
+      useFactory: (notificationRepository: NotificationRepository) => {
+        return new SendScheduledNotificationUseCase(notificationRepository)
       },
       inject: [PrismaNotificationRepository]
     }
