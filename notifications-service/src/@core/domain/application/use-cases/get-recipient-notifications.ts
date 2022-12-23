@@ -28,7 +28,7 @@ export class GetRecipientNotificationsUseCase {
     const { recipientId } = request
 
     const notifications =
-      await this.notificationRepository.getRecipientNotifications(recipientId)
+      await this.notificationRepository.findManyByRecipientId(recipientId)
 
     if (notifications instanceof Error) {
       return left(notifications as Error)

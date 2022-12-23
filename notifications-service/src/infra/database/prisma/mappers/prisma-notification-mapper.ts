@@ -9,6 +9,7 @@ export class PrismaNotificationMapper {
       content: notification.content.value,
       category: notification.category,
       readAt: notification.readAt?.toISOString() ?? null,
+      canceledAt: notification.cancelAt?.toISOString() ?? null,
       createdAt: notification.createdAt.toISOString()
     }
   }
@@ -20,6 +21,7 @@ export class PrismaNotificationMapper {
         content: Content.create(raw.content).value as Content,
         category: raw.category,
         readAt: raw.readAt ? new Date(raw.readAt) : null,
+        cancelAt: raw.canceledAt ? new Date(raw.canceledAt) : null,
         createdAt: new Date(raw.createdAt)
       },
       raw.id
