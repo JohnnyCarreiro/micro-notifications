@@ -13,6 +13,7 @@ export interface NotificationProps {
   category: string
   cancelAt?: Date | null
   readAt?: Date | null
+  scheduledFor?: Date | null
   createdAt: Date
 }
 
@@ -63,6 +64,14 @@ export class Notification {
     this.props.readAt = null
   }
 
+  public cancelSchedule() {
+    this.props.scheduledFor = null
+  }
+
+  public setSchedule(date: Date) {
+    this.props.scheduledFor = date
+  }
+
   public get id(): string {
     return this._id
   }
@@ -104,5 +113,9 @@ export class Notification {
 
   public get createdAt(): Date {
     return this.props.createdAt
+  }
+
+  public get scheduledFor(): Date | null | undefined {
+    return this.props.scheduledFor
   }
 }

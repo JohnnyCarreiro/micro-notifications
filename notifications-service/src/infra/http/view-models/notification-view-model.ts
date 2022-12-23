@@ -8,6 +8,7 @@ export class NotificationViewModel {
       content: notification.content.value,
       category: notification.category,
       readAt: notification.readAt ?? undefined,
+      scheduledFor: notification.scheduledFor ?? undefined,
       createdAt: notification.createdAt.toISOString()
     }
   }
