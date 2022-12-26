@@ -80,6 +80,17 @@ import { SendScheduledNotificationUseCase } from '@application/use-cases/send-sc
       },
       inject: [PrismaNotificationRepository]
     }
+  ],
+  exports: [
+    SendNotificationUseCase,
+    CancelNotificationUseCase,
+    ReadNotificationUseCase,
+    UnreadNotificationUseCase,
+    CountRecipientNotificationsUseCase,
+    GetRecipientNotificationsUseCase,
+    ScheduleNotificationUseCase,
+    CancelScheduleUseCase,
+    SendScheduledNotificationUseCase
   ]
 })
 export class HttpModule {}
