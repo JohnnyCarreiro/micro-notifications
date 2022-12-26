@@ -7,6 +7,11 @@ import { ReadNotificationUseCase } from '@application/use-cases/read-notificatio
 import { UnreadNotificationUseCase } from '@application/use-cases/unread-notification'
 import { CountRecipientNotificationsUseCase } from '@application/use-cases/count-recipient-notificaitons'
 import { GetRecipientNotificationsUseCase } from '@application/use-cases/get-recipient-notifications'
+import { SetNotificationScheduleBody } from '../dtos/set-notification-schedule-body'
+import { ScheduleNotificationUseCase } from '@application/use-cases/schedule-notification'
+import { CancelScheduleUseCase } from '@application/use-cases/cancel-schedule-notification'
+import { SendScheduledNotificationBody } from '../dtos/send-scheduled-notification'
+import { SendScheduledNotificationUseCase } from '@application/use-cases/send-scheduled-notification'
 
 @Controller('notifications')
 export class NotificationsController {
@@ -16,7 +21,10 @@ export class NotificationsController {
     private readonly readNotification: ReadNotificationUseCase,
     private readonly unreadNotification: UnreadNotificationUseCase,
     private readonly countNotificaitons: CountRecipientNotificationsUseCase,
-    private readonly getRecipientNotifications: GetRecipientNotificationsUseCase
+    private readonly getRecipientNotifications: GetRecipientNotificationsUseCase,
+    private readonly scheduleNotification: ScheduleNotificationUseCase,
+    private readonly cancelSchedule: CancelScheduleUseCase,
+    private readonly sendScheduledNotification: SendScheduledNotificationUseCase
   ) {}
 
   @Patch(':id/cancel')
@@ -65,6 +73,28 @@ export class NotificationsController {
     await this.unreadNotification.execute({ notificationId: id })
   }
 
+  @Patch(':id/schedule')
+  async schedule(
+    @Param('id') id: string,
+    @Body() body: SetNotificationScheduleBody
+  ) {
+    ;(
+      await this.scheduleNotification.execute({
+        notificationId: id,
+        date: body.scheduledFor
+      })
+    ).value as void
+  }
+
+  @Patch(':id/schedule/cancel')
+  async cancelNotificationSchedule(@Param('id') id: string) {
+    ;(
+      await this.cancelSchedule.execute({
+        notificationId: id
+      })
+    ).value as void
+  }
+
   @Post()
   async createNotification(@Body() body: CreatenotificationBody): Promise<{
     notification: ReturnType<typeof NotificationViewModel.toHttp>
@@ -76,6 +106,38 @@ export class NotificationsController {
         recipientId,
         content,
         category
+      })
+
+      if (response.isLeft()) {
+        throw new Error(response.value.message)
+      }
+      const { notification } = response.value
+
+      return {
+        notification: NotificationViewModel.toHttp(notification)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message)
+      }
+      throw new Error('Unexpected error: ' + error)
+    }
+  }
+
+  @Post('schedule')
+  async scheduledNotification(
+    @Body() body: SendScheduledNotificationBody
+  ): Promise<{
+    notification: ReturnType<typeof NotificationViewModel.toHttp>
+  }> {
+    const { recipientId, content, category, scheduledFor } = body
+
+    try {
+      const response = await this.sendScheduledNotification.execute({
+        recipientId,
+        content,
+        category,
+        scheduledFor
       })
 
       if (response.isLeft()) {
